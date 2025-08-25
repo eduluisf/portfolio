@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main"]     # cambia si tu rama por defecto no es "main"
   workflow_dispatch:
 
 permissions:
@@ -19,66 +19,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: 'npm'
+          node-version: 18          # CRA 5 funciona bien con Node 18
+          cache: npm
+
       - run: npm ci
-      # CRA trata warnings como errores cuando CI=true en Actions.
-      # Forzamos CI=false solo para el paso de build:
+
+      # Evita que CRA falle por warnings en CI
       - run: CI=false npm run build
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./build
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'npm'
-      - run: npm ci
-      # CRA trata warnings como errores cuando CI=true en Actions.
-      # Forzamos CI=false solo para el paso de build:
-      - run: CI=false npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./build
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
