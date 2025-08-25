@@ -5,7 +5,6 @@ import About from "./sections/About";
 import Skills from "./sections/Skills";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
-import Cat from "./sections/cat";
 import ScrollArrow from "./sections/ScrollArrow";
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
       <ScrollArrow nextId="about" />
       <Navbar />
       <Hero />
-      <Cat />
       <About />
       <Skills />
       <Contact />

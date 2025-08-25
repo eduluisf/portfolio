@@ -1,0 +1,28 @@
+.cat {
+  padding: var(--space-xl) 0 var(--space-lg);
+}
+
+.media {
+  display: flex;
+  justify-content: center;
+}
+
+.img {
+  inline-size: min(80vw, 960px);   /* ≤ 80% del viewport */
+  block-size: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 8px 40px rgba(0,0,0,.35);
+  object-fit: cover;
+  display: block;
+  /* glow suave al hover (a juego con el acento) */
+  transition: filter .25s ease, transform .2s ease;
+}
+.img:hover {
+  filter: drop-shadow(0 0 16px rgba(52,209,190,.45));
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px){
+  .img { inline-size: 90vw; }
+}

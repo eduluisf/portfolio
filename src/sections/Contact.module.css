@@ -1,85 +1,85 @@
-/* Sección Contacto */
-.contact {
-  padding: var(--space-xl) 0 var(--space-lg);
-}
+.contact { padding: var(--space-xl) 0 var(--space-lg); }
 
-/* Contenedor centrado con máx 80vw (y un cap opcional a 720px) */
+/* Contenedor: máx 80% del viewport (y tope ancho) */
 .inner {
   width: 100%;
-  max-inline-size: min(80vw, 720px);
+height: clamp(60vh, 20vh, 90vh);
+max-height: 80vh;
+
   margin-inline: auto;
 }
 
-/* Título */
-.title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: var(--space-md);
-  color: var(--color-fg);
-  text-align: left; /* cambia a center si prefieres */
-}
-
-/* Layout del formulario */
-.form {
+/* Layout 2 columnas */
+.grid {
   display: grid;
-  gap: var(--space-md);
+  grid-template-columns: minmax(0, 1fr) 400px; /* form | gato */
+  gap: var(--space-sm);
+  align-items: start;
 }
 
-/* Campos */
+/* Formulario (lo que ya tenías, con un wrap) */
+.formWrap { min-width: 0; } /* evita overflow en títulos largos */
+
+.title {
+  font-size: 2rem; font-weight: 400;
+  margin-bottom: var(--space-md); color: var(--color-fg);
+}
+
+.form {
+  display: grid; gap: var(--space-md);
+}
 .form :where(input, textarea) {
-  width: 100%;
+  width: clamp(200px, 100%, 80%);
   padding: calc(var(--space-sm) + 2px) var(--space-md);
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
   color: var(--color-fg);
   outline: none;
 }
-
-/* Placeholder legible */
-.form :where(input, textarea)::placeholder {
-  color: var(--color-muted);
-}
-
-/* Focus accesible */
+.form :where(input, textarea)::placeholder { color: var(--color-muted); }
 .form :where(input, textarea):focus-visible {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 25%, transparent);
 }
+.form textarea { min-height: 140px; resize: vertical; }
 
-/* Altura del textarea */
-.form textarea {
-  min-height: 140px;
-  resize: vertical;
-}
-
-/* Botón enviar (estilo local a la sección) */
 .submit {
-  justify-self: start; /* o stretch si quieres ancho completo */
-  padding: .65rem 1.1rem;
-  border-radius: 12px;
-  border: 1px solid var(--color-accent);
-  background: transparent;
-  color: var(--color-fg);
-  font-weight: 600;
-  cursor: pointer;
+  justify-self: start;
+  padding: .65rem 1.1rem; border-radius: 12px;
+  border: 1px solid var(--color-accent); background: transparent;
+  color: var(--color-fg); font-weight: 600; cursor: pointer;
   transition: background-color .2s, border-color .2s, transform .06s;
 }
-
 .submit:hover {
   background: color-mix(in oklab, var(--color-accent) 12%, transparent);
   border-color: color-mix(in oklab, var(--color-accent) 70%, transparent);
 }
-
 .submit:active { transform: translateY(1px); }
+.submit:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 
-.submit:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+/* Columna del gato */
+.aside {
+  position: sticky; top: clamp(48px, 12vh, 120px); /* se queda “pegado” */
+  align-self: start;
+}
+.img {
+  display: block;
+  inline-size: 100%; block-size: auto;
+  object-fit: cover;
+  transition: filter .25s ease, transform .2s ease;
+}
+.img:hover {
+  filter: drop-shadow(0 0 16px rgba(52,209,190,.45));
+  transform: translateY(-2px);
+}
+.caption {
+  display: block; margin-top: .5rem; color: var(--color-muted);
+  text-align: center; font-size: .9rem;
 }
 
-/* Responsive pequeño */
-@media (max-width: 480px) {
-  .title { font-size: 1.5rem; }
-  .inner { max-inline-size: 90vw; }
+/* Responsive: apilar en móvil */
+@media (max-width: 900px){
+  .grid { grid-template-columns: 1fr; }
+  .aside { position: static; max-inline-size: 360px; margin-inline: auto; }
 }
