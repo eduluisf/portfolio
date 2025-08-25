@@ -1,6 +1,7 @@
 import styles from './Hero.module.css';
 
 
+
 export default function Hero() {
   const tags = ["Artificial Intelligence", "Education", "Programming", "3D Art"];
 
@@ -25,6 +26,7 @@ export default function Hero() {
           </li>
         ))}
       </ul>
+
 
       
     </header>

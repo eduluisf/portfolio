@@ -6,10 +6,13 @@ import Skills from "./sections/Skills";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import Cat from "./sections/cat";
+import ScrollArrow from "./sections/ScrollArrow";
 
 function App() {
   return (
     <div className="App">
+
+      <ScrollArrow nextId="about" />
       <Navbar />
       <Hero />
       <Cat />

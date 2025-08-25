@@ -5,7 +5,7 @@
     justify-content: space-between;
     margin-top: var(--space-lg);
     z-index: 1;
-   
+    
 }
 
 
@@ -17,6 +17,11 @@
     padding: var(--space-sm) var(--space-md);
     text-decoration: none;
         
+}
+
+.download:hover{
+    filter: drop-shadow(0 0 6px color-mix(in oklab, var(--color-accent) 70%, transparent));
+    
 }
 
 .link{

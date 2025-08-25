@@ -1,0 +1,73 @@
+/* Botón base: sin transform ni animación */
+.arrow{
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+
+  position: fixed;
+  z-index: 999;
+  inset-block-end: 24px;
+  inset-inline-end: var(--page-gutter, 64px);
+
+  width: 80px;
+  height: 80px;
+  border-radius: 9999px;
+  background: transparent;
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+ 
+  cursor: pointer;
+  transition: background-color .2s, border-color .2s;
+}
+
+
+.arrow:hover .icon{
+  filter: drop-shadow(0 0 10px color-mix(in oklab, var(--color-accent) 70%, transparent));
+}
+.arrow:focus-visible{
+  outline: 2px solid var(--color-accent, #34D1BE);
+  outline-offset: 2px;
+}
+
+/* Capa que flota verticalmente */
+.float{
+  display: grid;
+  place-items: center;
+  animation: floatY 1.5s ease-in-out infinite;
+}
+
+/* Solo el SVG rota */
+.icon{
+  width: 35px;
+  height: 35px;
+  display: block;
+  transition: transform .25s ease;
+  transform-origin: 50% 50%;
+}
+
+/* Direcciones (rotación) – aplican porque .up/.down están en el button */
+.down .icon{ transform: rotate(0deg); }
+.up   .icon{ transform: rotate(180deg); }
+
+/* Animación de flotación */
+@keyframes floatY{
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(8px); }
+  100% { transform: translateY(0); }
+}
+
+/* Accesibilidad: respetar reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .float{ animation: none; }
+  .icon{ transition: none; }
+}
+
+/* Móvil */
+@media (max-width: 480px){
+  .arrow{ inset-block-end: 16px; width: 44px; height: 44px; }
+  .icon{ width: 20px; height: 20px; }
+}
