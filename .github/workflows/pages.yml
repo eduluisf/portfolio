@@ -22,12 +22,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18          # CRA 5 funciona bien con Node 18
+          node-version: 18          # CRA 5 + Node 18
           cache: npm
 
       - run: npm ci
-
-      # Evita que CRA falle por warnings en CI
       - run: CI=false npm run build
 
       - uses: actions/upload-pages-artifact@v3
