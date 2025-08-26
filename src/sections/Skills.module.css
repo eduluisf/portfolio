@@ -5,7 +5,7 @@
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--space-md); margin-bottom: var(--space-md);
 }
-.title{ font-size: 2rem; font-weight: 700; color: var(--color-fg); }
+.title{ font-size: 2rem; font-weight: 500; color: var(--color-fg); }
 
 .controls{ display: flex; gap: var(--space-sm); }
 .navBtn{
@@ -24,11 +24,12 @@
 /* Carrusel */
 .viewport{ position: relative; }
 .track{
-  display: flex; gap: var(--space-md);
+  display: flex; gap: var(--space-lg);
   overflow-x: auto; scroll-snap-type: x mandatory;
   scroll-padding-inline: var(--page-gutter, 64px);
   padding-bottom: var(--space-sm);
   -webkit-overflow-scrolling: touch;
+
 }
 .track::-webkit-scrollbar{ height:8px; }
 .track::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.16); border-radius:9999px; }
@@ -36,15 +37,16 @@
 /* Slide a pantalla completa (con gutters) */
 .slide{
   scroll-snap-align: start;
-  flex: 0 0 100%;
-  border: 1px solid rgba(255,255,255,.10);
+  flex: 0 0 95%;
+  border: 0.5px solid var(--color-accent);
   border-radius: 16px;
-  background: rgba(255,255,255,.03);
-  padding: clamp(16px, 3vw, 28px);
+
+  padding: clamp(16px, 10vw, 28px);
   display: grid;
-  gap: clamp(16px, 2.5vw, 28px);
+  gap: clamp(16px, 5vw, 28px);
   grid-template-columns: 1.1fr 1.3fr; /* texto | collage */
   min-height: clamp(360px, 50vmin, 520px);
+   background-color: #1e1e1e;
 }
 
 /* Panel de texto izquierdo */

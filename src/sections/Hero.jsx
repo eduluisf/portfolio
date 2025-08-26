@@ -6,7 +6,7 @@ export default function Hero() {
   const tags = ["Artificial Intelligence", "Education", "Programming", "3D Art"];
 
   return (
-    <header id="home" className={`section ${styles.hero}`}>
+    <header id="hero" className={`section ${styles.hero}`}>
       <h1 className={styles.headline}>
         I'm <span className={styles.name}>Eduardo Sierra</span>
       </h1>

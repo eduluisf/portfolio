@@ -10,7 +10,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={styles.nav}>
+<nav id="site-nav" className={styles.nav}>
       <div className="brand">Eduardo Sierra</div>
 
       <div className="links">

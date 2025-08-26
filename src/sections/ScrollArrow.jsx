@@ -1,12 +1,12 @@
+// ScrollArrow.jsx (simple)
 import { useEffect, useState } from "react";
 import styles from "./ScrollArrow.module.css";
-import { scrollToId } from "../utils/scrollToId";
-import { ReactComponent as ArrowIcon } from "../assets/arrow.svg"; // <- tu SVG
+import { ReactComponent as ArrowIcon } from "../assets/arrow.svg";
 
 /**
- * Flecha fija que cambia de dirección según scroll.
- * @param {string} nextId - id de la próxima sección a la que bajar (por defecto "about").
- * @param {number} threshold - tolerancia en px para considerar “llegué al fondo”.
+ * Minimal floating arrow:
+ * - Points down; on click scrolls to nextId or by one viewport.
+ * - When near bottom, flips up; on click scrolls to top.
  */
 export default function ScrollArrow({ nextId = "about", threshold = 64 }) {
   const [pointUp, setPointUp] = useState(false);
@@ -28,28 +28,39 @@ export default function ScrollArrow({ nextId = "about", threshold = 64 }) {
   }, [threshold]);
 
   const onClick = () => {
+    const prefersReduced =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const behavior = prefersReduced ? "auto" : "smooth";
+
     if (pointUp) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (nextId) {
-      scrollToId(nextId);
-    } else {
-      window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior });
+      return;
     }
+    if (nextId) {
+      const el = document.getElementById(nextId);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top, behavior });
+        return;
+      }
+    }
+    // fallback: scroll by one viewport
+    window.scrollBy({ top: window.innerHeight, behavior });
   };
 
-  const label = pointUp ? "Subir al inicio" : "Bajar a la siguiente sección";
+  const label = pointUp ? "Subir al inicio" : "Bajar";
 
   return (
- <button
-  type="button"
-  className={`${styles.arrow} ${pointUp ? styles.up : styles.down}`}
-  onClick={onClick}
-  aria-label={label}
-  title={label}
->
-  <span className={styles.float}>
-    <ArrowIcon className={styles.icon} aria-hidden="true" />
-  </span>
-</button>
+    <button
+      type="button"
+      className={`${styles.arrow} ${pointUp ? styles.up : styles.down}`}
+      onClick={onClick}
+      aria-label={label}
+      title={label}
+    >
+      <span className={styles.float}>
+        <ArrowIcon className={styles.icon} aria-hidden="true" />
+      </span>
+    </button>
   );
 }

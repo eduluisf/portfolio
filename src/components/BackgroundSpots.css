@@ -1,0 +1,58 @@
+/* Base oscuro global (sin tints por sección) */
+.body-bg {
+
+}
+
+/* Ruido sutil fijo */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0 .05 0'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: .35;
+  mix-blend-mode: overlay;
+}
+
+/* Cada mancha es su propia capa fija */
+.bg-spot {
+  position: fixed;
+  inset: 0;
+  z-index: -3;           /* todas detrás del contenido */
+  pointer-events: none;
+  /* variables por spot */
+  --x: 50%;
+  --y: 50%;
+  --rx: 30rem;
+  --ry: 20rem;
+
+  /* superposición real */
+  mix-blend-mode: screen;  /* suma luz al cruzarse */
+  /* algo de blur para suavizar bordes */
+  filter: blur(2px) saturate(110%) contrast(105%);
+
+  /* por default transparent; cada spot define su gradiente/alpha */
+  background: none;
+}
+
+/* Colores/alpha de cada spot (más visibles) */
+.spot1 {
+  background:
+    radial-gradient(ellipse var(--rx) var(--ry) at var(--x) var(--y),
+      rgba(123, 97, 255, 0.35), transparent 60%);
+}
+.spot2 {
+  background:
+    radial-gradient(ellipse var(--rx) var(--ry) at var(--x) var(--y),
+      rgba(30, 200, 255, 0.26), transparent 60%);
+}
+.spot3 {
+  background:
+    radial-gradient(ellipse var(--rx) var(--ry) at var(--x) var(--y),
+      rgba(255, 0, 200, 0.22), transparent 70%);
+}
+
+/* Respeta usuarios con reduce-motion: fija en posiciones por defecto */
+@media (prefers-reduced-motion: reduce) {
+  .bg-spot { transition: none; }
+}

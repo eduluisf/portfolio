@@ -1,12 +1,22 @@
 .nav{
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: var(--space-lg);
-    z-index: 1;
-    
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* altura aprox. 72px */
+  min-height: 72px;
+  padding: 0 var(--space-md);
+
+  background: transparent;
+  backdrop-filter: blur(6px);
 }
+
+/* tus clases .download, .link se quedan como están */
+
 
 
 .download{

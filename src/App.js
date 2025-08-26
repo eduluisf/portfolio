@@ -6,17 +6,17 @@ import Skills from "./sections/Skills";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import ScrollArrow from "./sections/ScrollArrow";
+import BackgroundSpots from "./components/BackgroundSpots";
 
 function App() {
   return (
-    <div className="App">
-
-      <ScrollArrow nextId="about" />
+    <div className="App body-bg">
+      <BackgroundSpots />  
       <Navbar />
       <Hero />
-      <About />
-      <Skills />
-      <Contact />
+      <section id="about" className="section"><About /></section>
+      <section id="skills" className="section"><Skills /></section>
+      <section id="contact" className="section"><Contact /></section>
       <Footer />
     </div>
   );
